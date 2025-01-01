@@ -1,0 +1,15 @@
+<h3 class="mx-2">Note page</h3>
+
+<app-note-form (addNewNote)="aggiungiCommento($event)" (editExistantNote)="modificaCommento($event)"
+                [canEditCommento]="canEditCommento" [currentCommento]="currentCommento"></app-note-form>
+  
+&nbsp;&nbsp;
+  
+<div class="card" style="width: 36rem;" *ngFor="let item of commenti">
+    <div class="card-body" style="padding-left: 0.5rem;">
+      <h5 class="card-title">{{item.title}}</h5>
+      <p class="card-text">{{item.body}}</p>
+      <button (click)="edit(item)" type="button" class="btn btn-outline-info">Modifica Commento</button>
+    </div>
+</div>
+ 

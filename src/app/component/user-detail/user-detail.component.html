@@ -1,0 +1,11 @@
+<h3 class="mx-2">User Details</h3>
+<div class="mx-2">
+  <ul>
+    <li>First Name: {{user.firstname}}</li>
+    <li>Last Name: {{user.lastname}}</li>
+    <li>Age: {{user.age}}</li>
+    <li *ngIf="user.email">Email: {{user.email}}</li>
+    <li *ngIf="user.birthdate">Birthdate: {{user.birthdate | date:'dd/MM/yyyy'}}</li>
+    <li *ngIf="user.address != null">Address: {{user.address.street}}, {{user.address.city}}</li>
+  </ul>
+</div>

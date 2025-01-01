@@ -1,0 +1,31 @@
+<div class="card mx-2" style="width: 36rem;">
+    <form>
+      <div class="form-group">
+        <label for="notetitle">Title</label>
+        <input
+          [(ngModel)]="currentCommento.title"
+          name="title"
+          type="text"
+          class="form-control"
+          id="notetitle"
+          #title>
+      </div>
+  
+      <div class="form-group">
+        <label for="notebody">Body</label>
+        <input
+          [(ngModel)]="currentCommento.body"
+          name="body"
+          type="text"
+          class="form-control"
+          id="notebody"
+          #body>
+      </div>
+  
+      <button *ngIf="!canEditCommento" (click)="onSubmitNote(title.value, body.value)"
+              type="submit" class="btn btn-primary">Aggiungi Commento</button>
+      
+      <button *ngIf="canEditCommento" (click)="onSubmitNote(title.value, body.value)"
+              type="submit" class="btn btn-primary">Modifica Commento</button>
+    </form>
+</div>

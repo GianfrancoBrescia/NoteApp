@@ -1,0 +1,106 @@
+<div class="card mx-2" style="width: 36rem;">
+    <form #userForm="ngForm" (ngSubmit)="userForm">
+      <div class="form-group">
+        <label for="firstnametxt">First Name</label>
+        <input
+          required
+          minlength="2"
+          [(ngModel)]="currentUser.firstname"
+          name="firstname"
+          #firstnameinput="ngModel"
+          type="text"
+          class="form-control"
+          [ngClass]="{'is-invalid': firstnameinput.errors && firstnameinput.enabled}"
+          id="firstnametxt">
+        <div class="invalid-feedback" [hidden]="firstnameinput.hasError('minlength')">
+          Please insert a first name.
+        </div>
+        <div class="invalid-feedback" [hidden]="firstnameinput.hasError('required')">
+          Please insert a valid first name (>=2 chars).
+        </div>
+      </div>
+  
+      <div class="form-group">
+        <label for="lastnametxt">Last Name</label>
+        <input
+          required
+          #lastnameinput="ngModel"
+          [(ngModel)]="currentUser.lastname"
+          name="lastname"
+          type="text"
+          class="form-control"
+          [ngClass]="{'is-invalid': lastnameinput.errors && lastnameinput.enabled}"
+          id="lastnametxt">
+        <div class="invalid-feedback" [hidden]="lastnameinput.hasError('minlength')">
+          Please insert a last name.
+        </div>
+      </div>
+  
+      <div class="form-group">
+        <label for="agetxt">Age</label>
+        <input
+          [(ngModel)]="currentUser.age"
+          name="age"
+          type="number"
+          class="form-control"
+          id="agetxt">
+      </div>
+  
+      <div class="form-group">
+        <label for="emailtxt">Email</label>
+        <input
+          pattern="[a-z0-9!#$%&'*+/=?^_`{|}~-]+(?:\.[a-z0-9!#$%&'*+/=?^_`{|}~-]+)*@(?:[a-z0-9](?:[a-z0-9-]*[a-z0-9])?\.)+[a-z0-9](?:[a-z0-9-]*[a-z0-9])?"
+          #emailinput="ngModel"
+          [(ngModel)]="currentUser.email"
+          name="email"
+          type="email"
+          class="form-control"
+          [ngClass]="{'is-invalid': emailinput.errors}"
+          id="emailtxt">
+        <div class="invalid-feedback" [hidden]="emailinput.hasError('minlength')">
+          Please enter a valid email
+        </div>
+      </div>
+  
+      <fieldset ngModelGroup="address">
+        <legend>Address Information</legend>
+        <div class="form-group">
+          <label for="streettext">Street</label>
+          <input
+            [(ngModel)]="currentUser.address!.street"
+            name="street"
+            type="text"
+            class="form-control"
+            id="streettext">
+        </div>
+        <div class="form-group">
+          <label for="citytext">City</label>
+          <input
+            [(ngModel)]="currentUser.address!.city"
+            name="city"
+            type="text"
+            class="form-control"
+            id="citytext">
+        </div>
+      </fieldset>
+  
+      <div class="form-group">
+        <label for="birthdatetxt">Birthdate</label>
+        <input
+          [(ngModel)]="currentUser.birthdate"
+          name="birthdate"
+          type="date"
+          class="form-control"
+          id="birthdatetxt">
+      </div>
+  
+      <button *ngIf="!canEditUser" [disabled]="!userForm.valid"
+              (click)="onSubmitUser(userForm); userForm.resetForm();"
+              type="submit" class="btn btn-primary">Add new user</button>
+  
+      <button *ngIf="canEditUser" [disabled]="!userForm.valid"
+              (click)="onSubmitUser(userForm); userForm.resetForm();"
+              type="submit" class="btn btn-primary">Edit user</button>
+    </form>
+</div>
+  
