@@ -1,3 +1,5 @@
+[![codecov](https://codecov.io/github/GianfrancoBrescia/NoteApp/graph/badge.svg?token=0U1H3IP8W1)](https://codecov.io/github/GianfrancoBrescia/NoteApp)
+
 # NoteApp
 
 This standalone project was generated with [Angular CLI](https://github.com/angular/angular-cli) version 18.2.3 and it has the purpose of manage users and notes inserted by these users.
