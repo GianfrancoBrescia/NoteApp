@@ -2,7 +2,7 @@
 
 # NoteApp
 
-This standalone project was generated with [Angular CLI](https://github.com/angular/angular-cli) version 18.2.3 and it has the purpose of manage users and notes inserted by these users.
+This standalone project was generated with [Angular CLI](https://github.com/angular/angular-cli) version 18.2.3 and it has the purpose of manage users and notes inserted by these users calling API Rest of microservice [MSNote](https://github.com/GianfrancoBrescia/MSNote).
 
 ## Build
 
@@ -23,4 +23,5 @@ Run `npm run test` to execute the unit tests via [Karma](https://karma-runner.gi
 Run `npm run sonar` to execute a sonar scanner analysis.
 
 ## TO-DO
-Actually every data is mocked/static but the project is prepared to call API Rest in case you want to create a possible backend microservice.
+- Modify user page in order to be able to insert multiple addresses
+- Modify note page in order to be able to assign notes to specific users

@@ -1,7 +1,8 @@
+import {HttpClient} from '@angular/common/http';
 import {Injectable} from '@angular/core';
-import {Address} from '../model/Address';
-import {User} from '../model/User';
 import {Observable, of} from 'rxjs';
+import {User} from '../model/User';
+import {environment} from '../../environment/environment';
 import _ from 'lodash';
 
 @Injectable({
@@ -9,33 +10,22 @@ import _ from 'lodash';
 })
 export class UserService {
 
-  public users: User[];
-
-  constructor() {
-    this.users = [];
-    this.users.push(new User('Adriana', 'Caione', 33, null, new Address('Lecce', 'via Bari'), true, new Date('1986/07/28')));
-    this.users.push(new User('Alessandro', 'Fiore', 37, null, new Address('Lecce', 'via Imola'), true, null));
-    this.users.push(new User('Luigi', 'Manco', 34, null, new Address('Lecce', 'via Lodi'), true, null));
-    this.users.push(new User('Roberto', 'Vergallo', 36, null, null, true, null));
+  constructor(private http: HttpClient) {
   }
 
   getUsers(): Observable<User[]> {
-    return of(this.users);
+    return this.http.get<User[]>(`${environment.msNoteBaseUrl}/users`)
   }
 
-  createUser(user: User) {
-    user.visibility = true;
-    this.users.unshift(user);
+  createUser(user: User): Observable<User> {
+    return this.http.post<User>(`${environment.msNoteBaseUrl}/user`, user);
   }
 
-  editUser(oldUser: User, newUser: User) {
-    const index = this.users.findIndex(user => _.isEqual(oldUser, user));
-    if (index > -1) this.users[index] = newUser;
+  editUser(newUser: User): Observable<User> {
+    return this.http.put<User>(`${environment.msNoteBaseUrl}/user`, newUser);
   }
 
-  getUserByFirstName(firstname: string): User {
-    // === confronta l'attributo per stesso tipo e stesso valore
-    // == confronta l'attributo per stesso valore
-    return this.users.find(user => user.firstname === firstname)!;
+  getUserByFiscalCode(firstname: string): Observable<User> {
+    return this.http.get<User>(`${environment.msNoteBaseUrl}/user/${firstname}`);
   }
 }

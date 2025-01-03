@@ -11,12 +11,14 @@ describe('UserPageComponent', () => {
   let fixture: ComponentFixture<UserPageComponent>;
 
   let mockUserService: any;
-  const mockUser: User = new User('Mario', 'Rossi', 20, null, new Address(null, null), true, null);
-  const editedUser : User = new User('Mario', 'Verdi', 25, null, null, false, null);
+  const mockUser: User = new User('RSSMRA05A03H501O', 'Mario', 'Rossi', 20, null, new Address(null, null), true, null);
+  const editedUser : User = new User('VRDMRA00A03H501F', 'Mario', 'Verdi', 25, null, null, false, null);
 
   beforeEach(async () => {
     mockUserService = jasmine.createSpyObj(['getUsers', 'createUser', 'editUser']);
     mockUserService.getUsers.and.returnValue(of([]));
+    mockUserService.createUser.and.returnValue(of(mockUser));
+    mockUserService.editUser.and.returnValue(of(editedUser));
 
     await TestBed.configureTestingModule({
       imports: [UserPageComponent],

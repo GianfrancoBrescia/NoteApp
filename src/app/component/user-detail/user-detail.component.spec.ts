@@ -1,5 +1,6 @@
 import {ComponentFixture, TestBed} from '@angular/core/testing';
 import {ActivatedRoute, convertToParamMap} from '@angular/router';
+import {of} from 'rxjs';
 import {UserDetailComponent} from './user-detail.component';
 import {User} from '../../model/User';
 import {UserService} from '../../service/user.service';
@@ -9,11 +10,11 @@ describe('UserDetailComponent', () => {
   let fixture: ComponentFixture<UserDetailComponent>;
 
   let mockUserService: any;
-  let mockUser = new User('Mario', 'Rossi', 20, null, null, true, null);
+  let mockUser = new User('RSSMRA05A03H501O', 'Mario', 'Rossi', 20, null, null, true, null);
 
   beforeEach(async () => {
-    mockUserService = jasmine.createSpyObj(['getUserByFirstName']);
-    mockUserService.getUserByFirstName.and.returnValue(mockUser);
+    mockUserService = jasmine.createSpyObj(['getUserByFiscalCode']);
+    mockUserService.getUserByFiscalCode.and.returnValue(of(mockUser));
 
     await TestBed.configureTestingModule({
       imports: [UserDetailComponent],

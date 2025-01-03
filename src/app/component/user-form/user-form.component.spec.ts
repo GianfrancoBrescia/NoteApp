@@ -7,8 +7,8 @@ describe('UserFormComponent', () => {
   let component: UserFormComponent;
   let fixture: ComponentFixture<UserFormComponent>;
 
-  const newUser = new User('Mario', 'Rossi', 20, null, null, true, null);
-  const editedUser = new User('Mario', 'Verdi', 25, null, null, true, null);
+  const newUser = new User('RSSMRA05A03H501O', 'Mario', 'Rossi', 20, null, null, true, null);
+  const editedUser = new User('VRDMRA00A03H501F', 'Mario', 'Verdi', 25, null, null, true, null);
 
   let mockUserForm = {
     valid: false,

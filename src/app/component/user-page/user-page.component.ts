@@ -4,6 +4,7 @@ import {RouterLink} from '@angular/router';
 import {User} from '../../model/User';
 import {UserService} from '../../service/user.service';
 import {UserFormComponent} from '../user-form/user-form.component';
+import _ from "lodash";
 
 @Component({
   selector: 'app-user-page',
@@ -34,26 +35,29 @@ export class UserPageComponent implements OnInit {
     this.userService.getUsers().subscribe(data => this.users = data);
   }
 
-  showHideDetails(u: User) {
+  showHideDetails(u: User): void {
     u.visibility = !u.visibility;
   }
 
-  isHide(u: User) {
+  isHide(u: User): string {
     return u.visibility ? 'Hide Details' : 'Show Details';
   }
 
-  aggiungiUtente(u: User) {
-    this.userService.createUser(u);
+  aggiungiUtente(u: User): void {
+    this.userService.createUser(u).subscribe(data => this.users.unshift(data));
   }
 
-  edit(u: User) {
+  edit(u: User): void {
     this.canEditUser = true;
     this.currentUser = u;
   }
 
-  modificaUtente(u: User) {
-    this.canEditUser = false;
-    this.userService.editUser(this.currentUser, u);
-    this.currentUser = User.empty();
+  modificaUtente(u: User): void {
+    this.userService.editUser(u).subscribe(data => {
+      const index = this.users.findIndex(user => _.isEqual(this.currentUser, user));
+      if (index > -1) this.users[index] = data;
+      this.canEditUser = false;
+      this.currentUser = User.empty();
+    });
   }
 }

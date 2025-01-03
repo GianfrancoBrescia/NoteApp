@@ -1,6 +1,27 @@
 <div class="card mx-2" style="width: 36rem;">
     <form #userForm="ngForm" (ngSubmit)="userForm">
       <div class="form-group">
+        <label for="codicefiscaletxt">Fiscal Code</label>
+        <input
+          required
+          minlength="16"
+          maxlength="16"
+          [(ngModel)]="currentUser.codiceFiscale"
+          name="codiceFiscale"
+          #codicefiscaleinput="ngModel"
+          type="text"
+          class="form-control"
+          [ngClass]="{'is-invalid': codicefiscaleinput.errors && codicefiscaleinput.enabled}"
+          id="codicefiscaletxt">
+        <div class="invalid-feedback" [hidden]="codicefiscaleinput.hasError('minlength')">
+          Please insert a fiscal code.
+        </div>
+        <div class="invalid-feedback" [hidden]="codicefiscaleinput.hasError('required')">
+          Please insert a valid fiscale code (=16 chars).
+        </div>
+      </div>
+
+      <div class="form-group">
         <label for="firstnametxt">First Name</label>
         <input
           required
@@ -62,25 +83,25 @@
         </div>
       </div>
   
-      <fieldset ngModelGroup="address">
-        <legend>Address Information</legend>
+      <fieldset ngModelGroup="address" *ngFor="let address of currentUser.address; let myIndex = index">
+        <legend>Address Information {{myIndex}}</legend>
         <div class="form-group">
-          <label for="streettext">Street</label>
+          <label for="street-text-{{myIndex}}">Street</label>
           <input
-            [(ngModel)]="currentUser.address!.street"
+            [(ngModel)]="address!.street"
             name="street"
             type="text"
             class="form-control"
-            id="streettext">
+            id="street-text-{{myIndex}}">
         </div>
         <div class="form-group">
-          <label for="citytext">City</label>
+          <label for="city-text-{{myIndex}}">City</label>
           <input
-            [(ngModel)]="currentUser.address!.city"
+            [(ngModel)]="address!.city"
             name="city"
             type="text"
             class="form-control"
-            id="citytext">
+            id="city-text-{{myIndex}}">
         </div>
       </fieldset>
   
