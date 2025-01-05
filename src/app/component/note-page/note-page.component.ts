@@ -2,6 +2,7 @@ import {CommonModule} from '@angular/common';
 import {Component, OnInit} from '@angular/core';
 import {Note} from '../../model/Note';
 import {NoteService} from '../../service/note.service';
+import {UserService} from '../../service/user.service';
 import {NoteFormComponent} from '../note-form/note-form.component';
 
 @Component({
@@ -14,16 +15,18 @@ import {NoteFormComponent} from '../note-form/note-form.component';
 export class NotePageComponent implements OnInit {
 
   commenti!: Note[];
+  codiciFiscaliUtentiList: string[] = [];
   currentCommento!: Note;
   canEditCommento!: boolean;
 
-  constructor(private commentoService: NoteService) {
+  constructor(private commentoService: NoteService, private userService: UserService) {
   }
 
   ngOnInit() {
     this.currentCommento = Note.empty();
     this.canEditCommento = false;
     this.commentoService.getCommenti().subscribe(data => this.commenti = data);
+    this.userService.getUsers().subscribe(data => this.codiciFiscaliUtentiList = data?.map(x => x.codiceFiscale!) ?? []);
   }
 
   aggiungiCommento(commento: Note) {

@@ -3,6 +3,7 @@ import {of} from 'rxjs';
 import {NotePageComponent} from './note-page.component';
 import {Note} from '../../model/Note';
 import {NoteService} from '../../service/note.service';
+import {UserService} from '../../service/user.service';
 
 describe('NotePageComponent', () => {
   let component: NotePageComponent;
@@ -10,8 +11,10 @@ describe('NotePageComponent', () => {
 
   let mockNoteService: any;
   const mockNewNote: Note = new Note(null, null, 'Test', 'Test');
-  const mockEditedNote: Note = new Note(1, 10, 'Test', 'Test');
+  const mockEditedNote: Note = new Note('CNADRN86L68E506Z', 10, 'Test', 'Test');
   const mockUpdatedNote: Note = {...mockEditedNote, title: 'Test2', body: 'Test2'};
+
+  let mockUserService: any;
 
   beforeEach(async () => {
     mockNoteService = jasmine.createSpyObj(['getCommenti', 'createCommento', 'updateCommento']);
@@ -19,10 +22,14 @@ describe('NotePageComponent', () => {
     mockNoteService.createCommento.and.returnValue(of(mockNewNote));
     mockNoteService.updateCommento.and.returnValue(of(mockUpdatedNote));
 
+    mockUserService = jasmine.createSpyObj(['getUsers']);
+    mockUserService.getUsers.and.returnValue(of([]));
+
     await TestBed.configureTestingModule({
       imports: [NotePageComponent],
       providers: [
-        { provide: NoteService, useValue: mockNoteService }
+        { provide: NoteService, useValue: mockNoteService },
+        { provide: UserService, useValue: mockUserService }
       ]
     })
     .compileComponents();

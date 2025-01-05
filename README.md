@@ -21,6 +21,3 @@ Run `npm run test` to execute the unit tests via [Karma](https://karma-runner.gi
 ## Running SonarQube analysis
 
 Run `npm run sonar` to execute a sonar scanner analysis.
-
-## TO-DO
-- Modify note page in order to be able to assign notes to specific users

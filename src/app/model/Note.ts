@@ -1,13 +1,13 @@
 export class Note {
   
-  userId: undefined | null | number;
+  userFiscalCode: undefined | null | string;
   id: undefined | null |  number;
   title: undefined | null | string;
   body: undefined | null | string;
 
-  constructor(userId: undefined | null | number, id: undefined | null | number, title: undefined | null | string,
+  constructor(userFiscalCode: undefined | null | string, id: undefined | null | number, title: undefined | null | string,
               body: undefined | null | string) {
-    this.userId = userId;
+    this.userFiscalCode = userFiscalCode;
     this.id = id;
     this.title = title;
     this.body = body;

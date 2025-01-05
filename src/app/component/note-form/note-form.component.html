@@ -1,31 +1,49 @@
-<div class="card mx-2" style="width: 36rem;">
-    <form>
-      <div class="form-group">
-        <label for="notetitle">Title</label>
-        <input
-          [(ngModel)]="currentCommento.title"
-          name="title"
-          type="text"
-          class="form-control"
-          id="notetitle"
-          #title>
+<div class="card mx-2 w-75">
+  <form>
+    <div class="row py-2">
+      <div class="col-4">
+        <div class="form-group">
+          <label for="noteusercf">User</label>
+          <select id="noteusercf" class="form-control" name="userFiscalCode" [(ngModel)]="currentCommento.userFiscalCode"
+                  required #user="ngModel" [ngClass]="{'is-invalid': user.errors && user.enabled}">
+            <option [ngValue]="null" disabled="" selected hidden="">Scegli un utente ...</option>
+            <option *ngFor="let cf of codiciFiscaliUtentiList" [ngValue]="cf">{{cf}}</option>
+          </select>
+          <div class="invalid-feedback" [hidden]="user.hasError('required')">
+            Please select a user.
+          </div>
+        </div>
       </div>
-  
-      <div class="form-group">
-        <label for="notebody">Body</label>
-        <input
-          [(ngModel)]="currentCommento.body"
-          name="body"
-          type="text"
-          class="form-control"
-          id="notebody"
-          #body>
+      <div class="col-4">
+        <div class="form-group">
+          <label for="notetitle">Title</label>
+          <input
+            [(ngModel)]="currentCommento.title"
+            name="title"
+            type="text"
+            class="form-control"
+            id="notetitle"
+            #title>
+        </div>
       </div>
-  
-      <button *ngIf="!canEditCommento" (click)="onSubmitNote(title.value, body.value)"
-              type="submit" class="btn btn-primary">Aggiungi Commento</button>
-      
-      <button *ngIf="canEditCommento" (click)="onSubmitNote(title.value, body.value)"
-              type="submit" class="btn btn-primary">Modifica Commento</button>
-    </form>
+      <div class="col-4">
+        <div class="form-group">
+          <label for="notebody">Body</label>
+          <input
+            [(ngModel)]="currentCommento.body"
+            name="body"
+            type="text"
+            class="form-control"
+            id="notebody"
+            #body>
+        </div>
+      </div>
+    </div>
+
+    <button *ngIf="!canEditCommento" (click)="onSubmitNote(title.value, body.value, user.value)"
+            type="submit" class="btn btn-primary mt-3">Aggiungi Commento</button>
+    
+    <button *ngIf="canEditCommento" (click)="onSubmitNote(title.value, body.value, user.value)"
+            type="submit" class="btn btn-primary mt-3">Modifica Commento</button>
+  </form>
 </div>

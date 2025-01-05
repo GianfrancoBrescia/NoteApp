@@ -21,35 +21,41 @@ describe('NoteFormComponent', () => {
     expect(component).toBeTruthy();
   });
 
+  it('should submit note - invalid user fiscal code', () => {
+    spyOn(window, 'alert');
+    component.onSubmitNote('Test', 'Test', '');
+    expect(window.alert).toHaveBeenCalledWith('Inserisci un valido commento');
+  });
+
   it('should submit note - invalid title note', () => {
     spyOn(window, 'alert');
-    component.onSubmitNote('', 'Test');
+    component.onSubmitNote('', 'Test', '');
     expect(window.alert).toHaveBeenCalledWith('Inserisci un valido commento');
   });
 
   it('should submit note - invalid body note', () => {
     spyOn(window, 'alert');
-    component.onSubmitNote('Test', '');
+    component.onSubmitNote('Test', '', '');
     expect(window.alert).toHaveBeenCalledWith('Inserisci un valido commento');
   });
 
   it('should submit note - valid new note', () => {
     spyOn(component.addNewNote, 'emit');
 
-    component.onSubmitNote('Test', 'Test');
+    component.onSubmitNote('Test', 'Test', 'CNADRN86L68E506Z');
     fixture.detectChanges();
 
-    expect(component.addNewNote.emit).toHaveBeenCalledWith(new Note(null, null, 'Test', 'Test'));
+    expect(component.addNewNote.emit).toHaveBeenCalledWith(new Note('CNADRN86L68E506Z', null, 'Test', 'Test'));
   });
 
   it('should submit note - valid new note', () => {
     spyOn(component.editExistantNote, 'emit');
 
-    component.currentCommento = new Note(1, 10, 'Test', 'Test');
+    component.currentCommento = new Note('CNADRN86L68E506Z', 10, 'Test', 'Test');
     component.canEditCommento = true;
-    component.onSubmitNote('Test2', 'Test2');
+    component.onSubmitNote('Test2', 'Test2', 'CNADRN86L68E506Z');
     fixture.detectChanges();
     
-    expect(component.editExistantNote.emit).toHaveBeenCalledWith(new Note(1, 10, 'Test2', 'Test2'));
+    expect(component.editExistantNote.emit).toHaveBeenCalledWith(new Note('CNADRN86L68E506Z', 10, 'Test2', 'Test2'));
   });
 });

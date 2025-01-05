@@ -20,23 +20,26 @@ export class NoteFormComponent implements OnInit {
 
   @Input() canEditCommento!: boolean;
   @Input() currentCommento!: Note;
+  @Input() codiciFiscaliUtentiList!: string[];
 
   ngOnInit(): void {
     this.canEditCommento = false;
     this.currentCommento = Note.empty();
   }
 
-  onSubmitNote(title: string, body: string) {
-    if (!title || !body) {
+  onSubmitNote(title: string, body: string, userCf: string) {
+    if (!title || !body || !userCf) {
       alert('Inserisci un valido commento');
       return;
     }
 
+    const note: Note = new Note(userCf, this.currentCommento.id ?? null, title, body);
+
     if (this.canEditCommento) {
-      this.editExistantNote.emit(new Note(this.currentCommento.userId, this.currentCommento.id, title, body));
+      this.editExistantNote.emit(note);
       return;
     }
 
-    this.addNewNote.emit(new Note(null, null, title, body));
+    this.addNewNote.emit(note);
   }
 }
