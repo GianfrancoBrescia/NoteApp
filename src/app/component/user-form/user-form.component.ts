@@ -2,6 +2,7 @@ import {CommonModule} from '@angular/common';
 import {Component, EventEmitter, Input, OnInit, Output} from '@angular/core';
 import {FormsModule, NgForm} from '@angular/forms';
 import {User} from '../../model/User';
+import {Address} from '../../model/Address';
 
 @Component({
   selector: 'app-user-form',
@@ -12,31 +13,45 @@ import {User} from '../../model/User';
 })
 export class UserFormComponent implements OnInit {
 
-  @Output()
-  addNewUser: EventEmitter<User> = new EventEmitter<User>();
-
-  @Output()
-  editExistantUser: EventEmitter<User> = new EventEmitter<User>();
-
   @Input() canEditUser!: boolean;
   @Input() currentUser!: User;
+
+  @Output() addNewUser: EventEmitter<User> = new EventEmitter<User>();
+  @Output() editExistantUser: EventEmitter<User> = new EventEmitter<User>();
 
   ngOnInit() {
     this.canEditUser = false;
     this.currentUser = User.empty();
   }
 
-  onSubmitUser(userForm: NgForm) {
+  removeElementToAddressList(index: number): void {
+    this.currentUser.address!.splice(index, 1);
+  }
+
+  addEmptyElementToAddressList(): void {
+    this.currentUser.address = [
+      ...(this.currentUser.address ?? []),
+      new Address('', '')
+    ];
+  }
+
+  onSubmitUser(userForm: NgForm): void {
     if (!userForm.valid) {
       alert('Form not valid');
       return;
     }
 
+    const user: User = {
+      ...userForm.value,
+      address: this.currentUser.address?.map(a => ({street: a.street || null, city: a.city || null})) ?? null,
+      visibility: this.currentUser.visibility
+    };
+
     if (this.canEditUser) {
-      this.editExistantUser.emit(userForm.value);
+      this.editExistantUser.emit(user);
       return;
     }
 
-    this.addNewUser.emit(userForm.value);
+    this.addNewUser.emit(user);
   }
 }

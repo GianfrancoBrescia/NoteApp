@@ -5,7 +5,7 @@
 
 &nbsp; &nbsp;
 
-<div *ngFor="let user of users; let myindex = index" class="card" style="width: 36rem;">
+<div *ngFor="let user of users; let myindex = index" class="card">
   <div class="card-body">
     <h5 class="card-title">{{myindex + 1}}. {{user.firstname | uppercase}} {{user.lastname}}</h5>
     <button (click)="showHideDetails(user)" type="button" class="btn btn-outline-info">{{isHide(user)}}</button>

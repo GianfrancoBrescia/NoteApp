@@ -11,7 +11,7 @@ describe('UserPageComponent', () => {
   let fixture: ComponentFixture<UserPageComponent>;
 
   let mockUserService: any;
-  const mockUser: User = new User('RSSMRA05A03H501O', 'Mario', 'Rossi', 20, null, new Address(null, null), true, null);
+  const mockUser: User = new User('RSSMRA05A03H501O', 'Mario', 'Rossi', 20, null, [new Address('', '')], true, null);
   const editedUser : User = new User('VRDMRA00A03H501F', 'Mario', 'Verdi', 25, null, null, false, null);
 
   beforeEach(async () => {
@@ -54,7 +54,7 @@ describe('UserPageComponent', () => {
   it('should update user', () => {
     component.modificaUtente(editedUser);
     fixture.detectChanges();
-    expect(component.currentUser).toEqual(User.empty());
+    expect(component.currentUser).toEqual(User.empty(true));
   });
 
   it('should check if user details are visible or not', () => {

@@ -57,7 +57,7 @@ export class UserPageComponent implements OnInit {
       const index = this.users.findIndex(user => _.isEqual(this.currentUser, user));
       if (index > -1) this.users[index] = data;
       this.canEditUser = false;
-      this.currentUser = User.empty();
+      this.currentUser = User.empty(true);
     });
   }
 }

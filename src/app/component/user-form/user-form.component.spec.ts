@@ -48,7 +48,7 @@ describe('UserFormComponent', () => {
     component.onSubmitUser(form);
     fixture.detectChanges();
     
-    expect(component.addNewUser.emit).toHaveBeenCalledWith(newUser);
+    expect(component.addNewUser.emit).toHaveBeenCalledWith({...newUser, visibility: false});
   });
 
   it('should submit user - edited user', () => {
@@ -60,6 +60,6 @@ describe('UserFormComponent', () => {
     component.onSubmitUser(form);
     fixture.detectChanges();
     
-    expect(component.editExistantUser.emit).toHaveBeenCalledWith(editedUser);
+    expect(component.editExistantUser.emit).toHaveBeenCalledWith({...editedUser, visibility: false});
   });
 });

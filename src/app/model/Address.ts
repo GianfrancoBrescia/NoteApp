@@ -1,9 +1,9 @@
 export class Address {
 
-    city: undefined | null | string;
-    street: undefined | null | string;
+    city: string;
+    street: string;
 
-    constructor(city: undefined | null | string, street: undefined | null | string) {
+    constructor(city: string, street: string) {
         this.city = city;
         this.street = street;
     }

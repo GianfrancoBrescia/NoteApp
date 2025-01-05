@@ -23,5 +23,4 @@ Run `npm run test` to execute the unit tests via [Karma](https://karma-runner.gi
 Run `npm run sonar` to execute a sonar scanner analysis.
 
 ## TO-DO
-- Modify user page in order to be able to insert multiple addresses
 - Modify note page in order to be able to assign notes to specific users
